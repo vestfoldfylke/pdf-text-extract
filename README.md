@@ -14,7 +14,6 @@ const { pdfTextExtract } = require('@vestfoldfylke/pdf-text-extract')
 // Input variants (use one of these)
 const pdf = './<path-to-pdf>.pdf' // Path
 const pdf = 'https://<url-to-pdf>.pdf' // Network resource. Remember to handle CORS if using url
-const pdf = readFileSync('./<path-to-pdf>.pdf') // Buffer (doesnt have to come from readFile - just as an example)
 const pdf = new Uint8Array(readFileSync('./<path-to-pdf>.pdf')) // Uint8Array (doesnt have to come from readFile - just as an example)
 const pdf = { url: './<path-or url-to-pdf>.pdf', data: 'arrayBuffer or similar', verbosity: 0, ...options } // use either url or data - options are found in typedef, verboosity: 0 for suppressing logs
 

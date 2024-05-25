@@ -1,4 +1,8 @@
-const pdfjsLib = require('pdfjs-dist/legacy/build/pdf.js')
+const getPdfDocument = async (pdf) => {
+  const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.min.mjs')
+  return await getDocument(pdf)
+}
+
 // Need the legacy build to work with Node - newer versions require Canvas to work, we don't want it
 
 /**
@@ -47,7 +51,7 @@ module.exports.pdfTextExtract = async (pdf) => {
     pages: [],
     styles: []
   }
-  const loadingTask = await pdfjsLib.getDocument(pdf)
+  const loadingTask = await getPdfDocument(pdf)
   const doc = await loadingTask.promise
   pdfData.metadata = await doc.getMetadata()
   pdfData.metadata.numPages = doc.numPages
