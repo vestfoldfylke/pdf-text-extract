@@ -1,7 +1,7 @@
 {
   "name": "@vestfoldfylke/pdf-text-extract",
   "description": "Node module that extracts metadata, text-content, and styling from readable pdf-files",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "index.js",
   "scripts": {
     "test": "standard && node ./tests/pdf-text-extract.test.js"
