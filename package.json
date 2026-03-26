@@ -1,33 +1,35 @@
 {
-  "name": "@vestfoldfylke/pdf-text-extract",
-  "description": "Node module that extracts metadata, text-content, and styling from readable pdf-files",
-  "version": "2.0.2",
-  "main": "index.js",
-  "scripts": {
-    "test": "standard && node ./tests/pdf-text-extract.test.js"
-  },
-  "files": [
-    "index.js"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vestfoldfylke/pdf-text-extract.git"
-  },
-  "keywords": [
-    "pdf",
-    "pdf-reader",
-    "pdf-text"
-  ],
-  "author": "jorgtho",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/vestfoldfylke/pdf-text-extract/issues"
-  },
-  "homepage": "https://github.com/vestfoldfylke/pdf-text-extract#readme",
-  "dependencies": {
-    "pdfjs-dist": "^4.2.67"
-  },
-  "devDependencies": {
-    "standard": "^17.1.0"
-  }
+	"name": "@vestfoldfylke/pdf-text-extract",
+	"description": "Node module that extracts metadata, text-content, and styling from readable pdf-files",
+	"version": "2.0.2",
+	"main": "index.js",
+	"scripts": {
+		"test": "biome check && node ./tests/pdf-text-extract.test.js",
+		"lint": "npx @biomejs/biome check",
+		"lint:fix": "npx @biomejs/biome check --write"
+	},
+	"files": [
+		"index.js"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/vestfoldfylke/pdf-text-extract.git"
+	},
+	"keywords": [
+		"pdf",
+		"pdf-reader",
+		"pdf-text"
+	],
+	"author": "jorgtho",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/vestfoldfylke/pdf-text-extract/issues"
+	},
+	"homepage": "https://github.com/vestfoldfylke/pdf-text-extract#readme",
+	"dependencies": {
+		"pdfjs-dist": "^4.2.67"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.4.9"
+	}
 }

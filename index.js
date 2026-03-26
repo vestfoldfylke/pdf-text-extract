@@ -1,7 +1,7 @@
 const getPdfDocument = async (pdf) => {
-  const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.min.mjs')
-  return await getDocument(pdf)
-}
+	const { getDocument } = await import("pdfjs-dist/legacy/build/pdf.min.mjs");
+	return await getDocument(pdf);
+};
 
 // Need the legacy build to work with Node - newer versions require Canvas to work, we don't want it
 
@@ -46,42 +46,44 @@ const getPdfDocument = async (pdf) => {
  * @returns {Promise<PdfContent>}
  */
 module.exports.pdfTextExtract = async (pdf) => {
-  const pdfData = {
-    metadata: null,
-    pages: [],
-    styles: []
-  }
-  const loadingTask = await getPdfDocument(pdf)
-  const doc = await loadingTask.promise
-  pdfData.metadata = await doc.getMetadata()
-  pdfData.metadata.numPages = doc.numPages
+	const pdfData = {
+		metadata: null,
+		pages: [],
+		styles: [],
+	};
+	const loadingTask = await getPdfDocument(pdf);
+	const doc = await loadingTask.promise;
+	pdfData.metadata = await doc.getMetadata();
+	pdfData.metadata.numPages = doc.numPages;
 
-  for (let pageNum = 1; pageNum <= pdfData.metadata.numPages; pageNum++) {
-    const page = await doc.getPage(pageNum)
-    const pageContent = {
-      pageNumber: pageNum,
-      textLines: [],
-      textItems: []
-    }
+	for (let pageNum = 1; pageNum <= pdfData.metadata.numPages; pageNum++) {
+		const page = await doc.getPage(pageNum);
+		const pageContent = {
+			pageNumber: pageNum,
+			textLines: [],
+			textItems: [],
+		};
 
-    const txtContent = await page.getTextContent()
-    let currentLine = ''
-    for (const [index, item] of Object.entries(txtContent.items)) {
-      pageContent.textItems.push(item)
-      currentLine += item.str
-      if (item.hasEOL || Number(index) === txtContent.items.length - 1) { // If end of textLine or end of page
-        pageContent.textLines.push(currentLine)
-        currentLine = ''
-      }
-    }
-    pdfData.pages.push(pageContent)
+		const txtContent = await page.getTextContent();
+		let currentLine = "";
+		for (const [index, item] of Object.entries(txtContent.items)) {
+			pageContent.textItems.push(item);
+			currentLine += item.str;
+			if (item.hasEOL || Number(index) === txtContent.items.length - 1) {
+				// If end of textLine or end of page
+				pageContent.textLines.push(currentLine);
+				currentLine = "";
+			}
+		}
+		pdfData.pages.push(pageContent);
 
-    // Add styles as well
-    for (const [fontName, style] of Object.entries(txtContent.styles)) {
-      if (!pdfData.styles.find(style => style.fontName === fontName)) pdfData.styles.push({ fontName, ...style })
-    }
-    page.cleanup() // Cleanup resources
-  }
+		// Add styles as well
+		for (const [fontName, style] of Object.entries(txtContent.styles)) {
+			if (!pdfData.styles.find((style) => style.fontName === fontName))
+				pdfData.styles.push({ fontName, ...style });
+		}
+		page.cleanup(); // Cleanup resources
+	}
 
-  return pdfData
-}
+	return pdfData;
+};
